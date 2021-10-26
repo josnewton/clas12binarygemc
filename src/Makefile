@@ -26,43 +26,43 @@
 #---------------------------------------------------------------------
 
         SRCS = \
-             ${BINARY}/cmag/src/maggrid.c\
-             ${BINARY}/cmag/src/magfield.c\
-             ${BINARY}/cmag/src/magfieldutil.c\
-             ${BINARY}/cmag/src/mapcolor.c \
-             ${BINARY}/cmag/src/magfielddraw.c \
-             ${BINARY}/cmag/src/magfieldio.c \
-             ${BINARY}/cmag/src/svg.c \
-             ${BINARY}/cmag/src/testdata.c \
-             main.c
+	     main.c
+            #${CMAG}/cmag/src/maggrid.c\
+             ${CMAG}/cmag/src/magfield.c\
+             ${CMAG}/cmag/src/magfieldutil.c\
+             ${CMAG}/cmag/src/mapcolor.c \
+             ${CMAG}/cmag/src/magfielddraw.c \
+             ${CMAG}/cmag/src/magfieldio.c \
+             ${CMAG}/cmag/src/svg.c \
+             ${CMAG}/cmag/src/testdata.c \
+             main.c \
 
-        LIBSRCS = \
-              ${BINARY}/cmag/src/maggrid.c\
-              ${BINARY}/cmag/src/magfield.c\
-              ${BINARY}/cmag/src/magfieldutil.c\
-              ${BINARY}/cmag/src/mapcolor.c \
-              ${BINARY}/cmag/src/magfielddraw.c \
-              ${BINARY}/cmag/src/magfieldio.c \
-              ${BINARY}/cmag/src/svg.c \
-              ${BINARY}/cmag/src/testdata.c
+        #LIBSRCS = \
+              #${CMAG}/cmag/src/maggrid.c\
+              ${CMAG}/cmag/src/magfield.c\
+              ${CMAG}/cmag/src/magfieldutil.c\
+              ${CMAG}/cmag/src/mapcolor.c \
+              ${CMAG}/cmag/src/magfielddraw.c \
+              ${CMAG}/cmag/src/magfieldio.c \
+              ${CMAG}/cmag/src/svg.c \
+              ${CMAG}/cmag/src/testdata.c
 #---------------------------------------------------------------------
 # The object files (via macro substitution)
 #---------------------------------------------------------------------
 
       OBJS = ${SRCS:.c=.o}
-      LIBOBJS = ${LIBSRCS:.c=.o}
 
 #--------------------------------------------------------------------
 # required libraries
 #--------------------------------------------------------------------
 
-       LIBS = -lm -L../lib -lcMag
+       LIBS = -lm -L/${CMAG}/cmag/lib -lcMag
 
 #---------------------------------------------------------------------
 # The includes dir
 #---------------------------------------------------------------------
 
-      INCLUDES = -I../includes
+      INCLUDES = -I/${CMAG}/cmag/includes
 
 #---------------------------------------------------------------------
 # The object files 
@@ -75,21 +75,13 @@
 #--------------------------------------------------------
 
      all:
-	$(MKDIR) ../lib
-	$(MKDIR) ../bin
 
-	$(RM) *.o
-	$(RM) ../bin/$(PROGRAM)
-	$(RM) ../lib/$(LIBNAME)
-
-	$(CC) $(CFLAGS) $(INCLUDES) $(LIBSRCS)
-	ar r $(LIBNAME) $(LIBOBJS)
-	$(MV) $(LIBNAME) ../lib
 
 	$(CC) $(CFLAGS) $(INCLUDES) main.c
 
 	$(CC) -o $(PROGRAM) $(OBJS) $(LIBS) 
 	$(MV) $(PROGRAM) ../bin
+
 
 
 
